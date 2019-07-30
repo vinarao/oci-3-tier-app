@@ -1,0 +1,38 @@
+[
+    {
+      "description": "Allow Redmine connections to port 3000", 
+      "destination": null, 
+      "destination-type": null, 
+      "direction": "INGRESS", 
+      "icmp-options": null, 
+      "protocol": "6", 
+      "source": "ocid1.networksecuritygroup.oc1.phx.aaaaaaaamymz5w67hjwi5noy3trwexycpzzlmt4gfshulcv4orwerbvyeg5q", 
+      "source-type": "NETWORK_SECURITY_GROUP", 
+      "tcp-options": {
+        "destination-port-range": {
+          "max": 3000, 
+          "min": 3000
+        }, 
+        "source-port-range": null
+      }, 
+      "udp-options": null
+    }, 
+    {
+      "description": "Outbound port 3306 connection to the SQL DB", 
+      "destination": "ocid1.networksecuritygroup.oc1.phx.aaaaaaaamlbfvbpzhmnp77se576y546c6xbzfxgdy22hcfrx3bvat6amzstq", 
+      "destination-type": "NETWORK_SECURITY_GROUP", 
+      "direction": "EGRESS", 
+      "icmp-options": null, 
+      "protocol": "6", 
+      "source": null, 
+      "source-type": null, 
+      "tcp-options": {
+        "destination-port-range": {
+          "max": 3306, 
+          "min": 3306
+        }, 
+        "source-port-range": null
+      }, 
+      "udp-options": null
+    }
+] 

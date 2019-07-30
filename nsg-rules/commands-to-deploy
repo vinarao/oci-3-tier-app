@@ -1,0 +1,62 @@
+
+Create a VCN
+
+oci network vcn create --cidr-block 172.16.0.0/16 -c ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --display-name three-tier-app --region us-phoenix-1 
+
+
+
+Public Subnet 
+
+oci network subnet create --cidr-block 172.16.0.0/24 -c ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --display-name public-three-tier-app --region us-phoenix-1 --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa 
+
+
+
+
+
+
+
+Private Subnet 
+
+
+
+oci network subnet create --cidr-block 172.16.1.0/24 -c ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --display-name private-three-tier-app --region us-phoenix-1 --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --prohibit-public-ip-on-vnic True
+
+
+
+Create NSG
+
+
+
+
+
+Web NSG
+
+oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --display-name web-nsg  --region us-phoenix-1 
+
+
+
+App NSG
+
+ oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id 
+
+
+
+DB NSG
+
+oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --display-name db-nsg  --region us-phoenix-1 
+
+
+
+Deploy web compute
+
+oci compute instance launch --compartment-id ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --availability-domain  ZSEB:PHX-AD-1 --subnet-id ocid1.subnet.oc1.phx.aaaaaaaarmmd44c7377ev5b7wunac66h44xzadbe5m4yqqep32rrxqr4e6ea --shape "VM.Standard2.2" --image-id ocid1.image.oc1.phx.aaaaaaaa54bjroabxqmvzfrpq7vyp4yoga33dyfbtdaufdr2dkhubnh4szyq --nsg-ids file://nsg.json --region us-phoenix-1 --display-name web
+
+
+
+Deploy an App compute
+oci compute instance launch --compartment-id ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --availability-domain  ZSEB:PHX-AD-1 --subnet-id ocid1.subnet.oc1.phx.aaaaaaaarmmd44c7377ev5b7wunac66h44xzadbe5m4yqqep32rrxqr4e6ea --shape "VM.Standard2.2" --ssh-authorized-keys-file vinay_ssh.pub  --image-id ocid1.image.oc1.phx.aaaaaaaa54bjroabxqmvzfrpq7vyp4yoga33dyfbtdaufdr2dkhubnh4szyq --nsg-ids file://app-nsg.json --region us-phoenix-1 --display-name App
+
+
+
+Deploy a DB compute
+oci compute instance launch --compartment-id ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --availability-domain  ZSEB:PHX-AD-1 --subnet-id ocid1.subnet.oc1.phx.aaaaaaaarmmd44c7377ev5b7wunac66h44xzadbe5m4yqqep32rrxqr4e6ea --shape "VM.Standard2.2" --image-id ocid1.image.oc1.phx.aaaaaaaa54bjroabxqmvzfrpq7vyp4yoga33dyfbtdaufdr2dkhubnh4szyq  --ssh-authorized-keys-file vinay_ssh.pub --nsg-ids file://db-nsg.json --region us-phoenix-1 --display-name DB

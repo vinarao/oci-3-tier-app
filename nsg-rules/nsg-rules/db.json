@@ -1,0 +1,20 @@
+ [
+    {
+      "description": "Allow MySQL connections to port 3306 from the App-NSG", 
+      "destination": null, 
+      "destination-type": null, 
+      "direction": "INGRESS", 
+      "icmp-options": null, 
+      "protocol": "6", 
+      "source": "ocid1.networksecuritygroup.oc1.phx.aaaaaaaatjh5sj5amavfqa7dorblqydcivtfnwadmocpp5iavc3ww4qg2wya", 
+      "source-type": "NETWORK_SECURITY_GROUP", 
+      "tcp-options": {
+        "destination-port-range": {
+          "max": 3306, 
+          "min": 3306
+        }, 
+        "source-port-range": null
+      }, 
+      "udp-options": null
+    }
+  ]

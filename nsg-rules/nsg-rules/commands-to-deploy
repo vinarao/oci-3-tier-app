@@ -1,0 +1,28 @@
+
+Create NSG
+Web NSG
+
+oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --display-name web-nsg  --region us-phoenix-1 
+
+
+
+App NSG
+oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --display-name db-nsg  --region us-phoenix-1 
+
+
+
+DB NSG
+oci network nsg create --compartment-id  ocid1.tenancy.oc1..aaaaaaaa4pchyhewwxmynw4hniwnp5zngvkytedep4kz7n5pfbh5e6z6w7pq --vcn-id ocid1.vcn.oc1.phx.aaaaaaaa3zxnb4xmxk7jqpo7ps3lhqqn3ql3z5nkjp5zv6qaegv4hunj3goa --display-name db-nsg  --region us-phoenix-1 
+
+
+Apply security rules to NSG
+
+Add Web Rules to Web NSG 
+oci network nsg rules add --nsg-id ocid1.networksecuritygroup.oc1.phx.aaaaaaaamymz5w67hjwi5noy3trwexycpzzlmt4gfshulcv4orwerbvyeg5q --security-rules file://web.json --region us-phoenix-1
+
+
+Add App Rules to App NSG 
+oci network nsg rules add --nsg-id ocid1.networksecuritygroup.oc1.phx.aaaaaaaatjh5sj5amavfqa7dorblqydcivtfnwadmocpp5iavc3ww4qg2wya --security-rules file://app.json --region us-phoenix-1 
+
+Add DB Rules to DB NSG
+oci network nsg rules add --nsg-id ocid1.networksecuritygroup.oc1.phx.aaaaaaaamlbfvbpzhmnp77se576y546c6xbzfxgdy22hcfrx3bvat6amzstq --security-rules file://db.json --region us-phoenix-1 

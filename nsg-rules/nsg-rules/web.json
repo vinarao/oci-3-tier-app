@@ -1,0 +1,33 @@
+[
+        {
+      "description": "Allow http connections to NGINX port 9090",
+      "direction": "INGRESS",
+          "icmp-options": null, 
+          "is-stateless": false, 
+          "protocol": "6", 
+          "source": "0.0.0.0/0", 
+          "source-type": "CIDR_BLOCK", 
+          "tcp-options": {
+            "destination-port-range": {
+              "max": 9090, 
+              "min": 9090
+            }, 
+            "source-port-range": null
+          }, 
+          "udp-options": null
+        },
+        {
+      "description": "Outbound port 3000 connection to the Mid tier App NSG",
+      "destination": "ocid1.networksecuritygroup.oc1.phx.aaaaaaaatjh5sj5amavfqa7dorblqydcivtfnwadmocpp5iavc3ww4qg2wya",
+      "destinationType": "NETWORK_SECURITY_GROUP",
+      "direction": "EGRESS",
+          "is-stateless": false,
+          "protocol": "6",
+          "tcp-options": {
+            "destination-port-range": {
+              "max": 3000,
+              "min": 3000
+            }
+          }
+        }
+]
