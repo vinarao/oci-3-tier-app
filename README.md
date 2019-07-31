@@ -1,9 +1,9 @@
 <p align="center"> ### Deploying 3-Tier Application on OCI</p>
 
 This is a terraform template to deploy a Higly available 3Tier Application on OCI. 
-Front-end Tier is a OCI public loadbalancer 
-App-Tier is a Python Flask Application 
-Back-end Tier is based on Oracle DBaaS service
+Front-end Tier is a OCI public loadbalancer & NGNIX for proxy 
+App-Tier is a Readmine App
+DB Tier is based on MYSQL
 
 ##### 3 Tier Architecture #######
 
@@ -73,7 +73,7 @@ terraform apply
 
 If prompted to ‘Enter a value’. Type ‘yes’
 
-This will start creating the resources on OCI and might take long (approx. 2 hours) to complete as DB resources take time get provisioned and configured. 
+This will start creating the resources on OCI .
 
 ### Verifying the Application 
 
