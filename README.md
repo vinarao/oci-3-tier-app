@@ -7,7 +7,7 @@ Back-end Tier is based on Oracle DBaaS service
 
 ##### 3 Tier Architecture #######
 
-![Alt text](https://bitbucket.aka.lgl.grungy.us/users/vinayrao/repos/terraform-script/browse/3_tier_web_app_oracle/.idea/3TierDB.png?raw=true "3 Tier Architecture")
+![Alt text](https://github.com/vinarao/oci-3-tier-app/blob/master/image1.png?raw=true "3 Tier Architecture")
 
 
 
