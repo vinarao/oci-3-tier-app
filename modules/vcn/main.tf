@@ -70,6 +70,94 @@ egress_security_rules = [{
   }]
 }
 
+# Create Network Security Groups
+resource "oci_core_network_security_group" "Web" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${oci_core_virtual_network.vcn.id}"
+  display_name   = "Web NSG"
+}
+resource "oci_core_network_security_group" "App" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${oci_core_virtual_network.vcn.id}"
+  display_name   = "App NSG"
+}
+resource "oci_core_network_security_group" "DB" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${oci_core_virtual_network.vcn.id}"
+  display_name   = "DB NSG"
+}
+
+resource "oci_core_network_security_group_security_rule" "https" {
+  network_security_group_id = "${oci_core_network_security_group.Web.id}"
+  description = "HTTPS"
+  direction   = "INGRESS"
+  protocol    = 6
+  source_type = "CIDR_BLOCK"
+  source      = "0.0.0.0/0"
+  tcp_options {
+    destination_port_range {
+      min = 80
+      max = 80
+    }
+  }
+}
+resource "oci_core_network_security_group_security_rule" "web2app" {
+  network_security_group_id = "${oci_core_network_security_group.Web.id}"
+  description = "Allow Egress to App NSG"
+  direction   = "EGRESS"
+  protocol    = 6
+  destination_type = "NETWORK_SECURITY_GROUP"
+  destination      = "${oci_core_network_security_group.App.id}"
+  tcp_options {
+    destination_port_range {
+      min = 3000
+      max = 3000
+    }
+  }
+}
+resource "oci_core_network_security_group_security_rule" "web2app1" {
+  network_security_group_id = "${oci_core_network_security_group.App.id}"
+  description = "Allow Ingress to App NSG"
+  direction   = "INGRESS"
+  protocol    = 6
+  source_type = "NETWORK_SECURITY_GROUP"
+  source      = "${oci_core_network_security_group.Web.id}"
+  tcp_options {
+    destination_port_range {
+      min = 3000
+      max = 3000
+    }
+  }
+}
+resource "oci_core_network_security_group_security_rule" "App2db" {
+  network_security_group_id = "${oci_core_network_security_group.App.id}"
+  description = "Allow Egress to DB NSG"
+  direction   = "EGRESS"
+  protocol    = 6
+  destination_type = "NETWORK_SECURITY_GROUP"
+  destination      = "${oci_core_network_security_group.DB.id}"
+  tcp_options {
+    destination_port_range {
+      min = 3306
+      max = 3306
+    }
+  }
+}
+resource "oci_core_network_security_group_security_rule" "App2db1" {
+  network_security_group_id = "${oci_core_network_security_group.DB.id}"
+  description = "Allow Ingress from App NSG"
+  direction   = "INGRESS"
+  protocol    = 6
+  source_type = "NETWORK_SECURITY_GROUP"
+  source      = "${oci_core_network_security_group.App.id}"
+  tcp_options {
+    destination_port_range {
+      min = 3306
+      max = 3306
+    }
+  }
+}
+
 # Create subnet in vcn
 
 resource "oci_core_subnet" "public-subnet" {
