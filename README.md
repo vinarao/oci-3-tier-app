@@ -50,10 +50,10 @@ Once you have update the environment variables. Please source the file
 
 ### Deploying the Application 
 
-Step 1: Change the directory to 3_tier_web_app_oracle
+Step 1: Change the directory to 
 
 ```bash
-cd 3_tier_web_app_oracle
+cd oci-3-tier-app
 ```
 Step2: Initialize and apply the Terraform templates
 
