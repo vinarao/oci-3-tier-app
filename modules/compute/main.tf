@@ -14,7 +14,12 @@ resource "oci_core_instance" "compute_instance1" {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
   }
-
+  create_vnic_details {
+    subnet_id        = "${var.subnet1_ocid}"
+    assign_public_ip = "true"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_web_ocid}"]
+  }
   timeouts = {
     create = "60m"
   }
@@ -32,7 +37,12 @@ resource "oci_core_instance" "compute_instance2" {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
   }
-
+  create_vnic_details {
+    subnet_id        = "${var.subnet1_ocid}"
+    assign_public_ip = "true"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_web_ocid}"]
+  }
   timeouts = {
     create = "60m"
   }
@@ -49,6 +59,12 @@ resource "oci_core_instance" "compute_instance3" {
   metadata = {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
+  }
+  create_vnic_details {
+    subnet_id        = "${var.subnet2_ocid}"
+    assign_public_ip = "false"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_app_ocid}"]
   }
 
   timeouts = {
@@ -68,6 +84,12 @@ resource "oci_core_instance" "compute_instance4" {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
   }
+  create_vnic_details {
+    subnet_id        = "${var.subnet2_ocid}"
+    assign_public_ip = "false"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_app_ocid}"]
+  }
 
   timeouts = {
     create = "60m"
@@ -85,6 +107,12 @@ resource "oci_core_instance" "compute_instance5" {
   metadata = {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
+  }
+  create_vnic_details {
+    subnet_id        = "${var.subnet2_ocid}"
+    assign_public_ip = "false"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_db_ocid}"]
   }
 
   timeouts = {
@@ -104,7 +132,12 @@ resource "oci_core_instance" "compute_instance6" {
     ssh_authorized_keys = "${var.ssh_public_key}"
     user_data = "${base64encode(data.template_file.init.rendered)}"
   }
-
+  create_vnic_details {
+    subnet_id        = "${var.subnet2_ocid}"
+    assign_public_ip = "false"
+    display_name     = "primaryvnic"
+    nsg_ids          = ["${var.nsg_db_ocid}"]
+  }
   timeouts = {
     create = "60m"
   }
