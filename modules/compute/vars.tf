@@ -8,6 +8,9 @@ variable "image_ocid" {}
 variable "availability_domain" {}
 variable "subnet1_ocid" {}
 variable "subnet2_ocid" {}
+variable "nsg_app_ocid" {}
+variable "nsg_web_ocid" {}
+variable "nsg_db_ocid" {}
 
 # variable "ssh_private_key" {}
 # variable "public-ip1" {}

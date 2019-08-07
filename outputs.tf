@@ -1,8 +1,8 @@
 # Output variables from created compute instance
 
-output "instance_ocid1" {
-  value = "${module.compute.compute_instance1.id}"
-}
+#output "instance_ocid1" {
+#  value = "${module.compute.compute_instance1.id}"
+#}
 
 #output "instance_ocid2" {
 #  value = "${oci_core_instance.compute_instance2.id}"

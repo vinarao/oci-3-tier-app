@@ -1,7 +1,7 @@
 resource "oci_load_balancer" "lb1" {
   shape          = "100Mbps"
   compartment_id = "${var.compartment_ocid}"
-
+  network_security_group_ids = ["${var.nsg_web_ocid}"]
   subnet_ids = [
     "${var.subnet_ad1}",
   ]
@@ -37,7 +37,7 @@ resource "oci_load_balancer_listener" "lb-listener1" {
 resource "oci_load_balancer_backend" "lb-be1" {
   load_balancer_id = "${oci_load_balancer.lb1.id}"
   backendset_name  = "${oci_load_balancer_backend_set.lb-bes1.name}"
-  ip_address       = "${var.public_ip1}"
+  ip_address       = "${var.private_ip1}"
   port             = 9090
   backup           = false
   drain            = false
@@ -48,7 +48,7 @@ resource "oci_load_balancer_backend" "lb-be1" {
 resource "oci_load_balancer_backend" "lb-be2" {
   load_balancer_id = "${oci_load_balancer.lb1.id}"
   backendset_name  = "${oci_load_balancer_backend_set.lb-bes1.name}"
-  ip_address       = "${var.public_ip2}"
+  ip_address       = "${var.private_ip2}"
   port             = 9090
   backup           = false
   drain            = false
@@ -58,6 +58,7 @@ resource "oci_load_balancer_backend" "lb-be2" {
 
 resource "oci_load_balancer" "lb2" {
   shape          = "100Mbps"
+  network_security_group_ids = ["${var.nsg_app_ocid}"]
   compartment_id = "${var.compartment_ocid}"
 
   subnet_ids = [

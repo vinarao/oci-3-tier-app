@@ -37,6 +37,9 @@ module "compute" {
   ssh_public_key      = "${var.ssh_public_key}"
   subnet1_ocid        = "${module.vcn.subnet1_ocid}"
   subnet2_ocid        = "${module.vcn.subnet2_ocid}"
+  nsg_db_ocid         = "${module.vcn.nsg_db_ocid}"
+  nsg_app_ocid        = "${module.vcn.nsg_app_ocid}"
+  nsg_web_ocid        = "${module.vcn.nsg_web_ocid}"
 }
 
 module "lb" {
@@ -50,7 +53,7 @@ module "lb" {
   private_ip3 = "${module.compute.private_ip3}"
   private_ip4 = "${module.compute.private_ip4}"
   subnet_ad1 = "${module.vcn.subnet1_ocid}"
-
   subnet_ad2 = "${module.vcn.subnet2_ocid}"
+  nsg_web_ocid = "${module.vcn.nsg_web_ocid}"
+  nsg_app_ocid = "${module.vcn.nsg_app_ocid}"
 }
-
