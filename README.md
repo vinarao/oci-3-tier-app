@@ -78,5 +78,5 @@ This will start creating the resources on OCI .
 ### Verifying the Application 
 
 Open your browser and type 
-http://<public_ip>/api/test
+http://<public_ip>/
 
