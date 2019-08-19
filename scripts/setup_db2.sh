@@ -1,2 +1,0 @@
-sudo bash -c "mv /tmp/db2.sql /home/oracle/ && chmod 777 /home/oracle/db2.sql"
-sudo su - oracle -c "export ORACLE_SID=aTFdb && export ORAENV_ASK=NO && . /usr/local/bin/oraenv && exit | sqlplus / as sysdba @/home/oracle/db2.sql"
