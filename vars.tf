@@ -5,6 +5,7 @@ variable "user_ocid" {}
 variable "compartment_ocid"{}
 variable "fingerprint" {}
 variable "image_ocid" {}
+variable "ubuntu_image_ocid" {}
 variable "private_key_path" {}
 variable "region" {}
 variable "ssh_public_key" {}

@@ -33,6 +33,7 @@ module "compute" {
   compartment_ocid    = "${var.compartment_ocid}"
   availability_domain = "${var.availability_domain}"
   image_ocid          = "${var.image_ocid}"
+  ubuntu_image_ocid    = "${var.ubuntu_image_ocid}"
   instance_shape      = "${var.instance_shape}"
   ssh_public_key      = "${var.ssh_public_key}"
   subnet1_ocid        = "${module.vcn.subnet1_ocid}"

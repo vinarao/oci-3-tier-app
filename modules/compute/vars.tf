@@ -5,6 +5,7 @@ variable "compartment_ocid" {}
 variable "ssh_public_key" {}
 variable "instance_shape" {}
 variable "image_ocid" {}
+variable "ubuntu_image_ocid" {}
 variable "availability_domain" {}
 variable "subnet1_ocid" {}
 variable "subnet2_ocid" {}
