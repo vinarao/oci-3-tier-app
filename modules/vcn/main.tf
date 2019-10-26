@@ -36,6 +36,16 @@ resource "oci_core_nat_gateway" "ngw" {
     display_name = "ngw"
 
 }
+resource "oci_core_service_gateway" "service_gateway" {
+  compartment_id = "${var.compartment_ocid}"
+
+  services {
+    service_id = "${lookup(data.oci_core_services.test_services.services[0], "id")}"
+  }
+
+  vcn_id = "${oci_core_virtual_network.vcn.id}"
+}
+
 #create a RT for private subnet to reach the internet using NATGW
 
 resource "oci_core_route_table" "private_rt1" {
@@ -47,6 +57,11 @@ resource "oci_core_route_table" "private_rt1" {
     destination       = "0.0.0.0/0"
     destination_type  = "CIDR_BLOCK"
     network_entity_id = "${oci_core_nat_gateway.ngw.id}"
+  }
+  route_rules {
+    destination       = "${lookup(data.oci_core_services.test_services.services[0], "cidr_block")}"
+    destination_type  = "SERVICE_CIDR_BLOCK"
+    network_entity_id = "${oci_core_service_gateway.service_gateway.id}"
   }
 }
 
@@ -61,12 +76,7 @@ egress_security_rules = [{
     protocol = "all"
   }]
   ingress_security_rules = [{
-    tcp_options {
-      "max" = 22
-      "min" = 22
-    }
-
-    protocol = "6"
+    protocol = "all"
     source   = "0.0.0.0/0"
   }]
 }
@@ -191,3 +201,4 @@ resource "oci_core_subnet" "private-subnet" {
     command = "sleep 5"
   }
 }
+

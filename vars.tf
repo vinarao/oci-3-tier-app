@@ -18,9 +18,34 @@ variable "instance_count" {
 }
 
 variable "availability_domain" {
-  default = "3"
+  default = "1"
 }
 
 variable "instance_user" {
   default = "opc"
+}
+variable "autonomous_database_db_workload" {
+  default = "OLTP"
+}
+
+variable "autonomous_data_warehouse_db_workload" {
+  default = "DW"
+}
+
+variable "autonomous_database_defined_tags_value" {
+  default = "value"
+}
+
+variable "autonomous_database_freeform_tags" {
+  default = {
+    "Department" = "Finance"
+  }
+}
+
+variable "autonomous_database_license_model" {
+  default = "LICENSE_INCLUDED"
+}
+
+variable "autonomous_database_is_dedicated" {
+  default = false
 }

@@ -41,19 +41,14 @@ module "compute" {
   nsg_app_ocid        = "${module.vcn.nsg_app_ocid}"
   nsg_web_ocid        = "${module.vcn.nsg_web_ocid}"
 }
-
-module "lb" {
-  source           = "./modules/load_balancer"
-  tenancy_ocid     = "${var.tenancy_ocid}"
-  compartment_ocid = "${var.compartment_ocid}"
-  public_ip1      = "${module.compute.public_ip1}"
-  public_ip2      = "${module.compute.public_ip2}"
-  private_ip1 = "${module.compute.private_ip1}"
-  private_ip2 = "${module.compute.private_ip2}"
-  private_ip3 = "${module.compute.private_ip3}"
-  private_ip4 = "${module.compute.private_ip4}"
-  subnet_ad1 = "${module.vcn.subnet1_ocid}"
-  subnet_ad2 = "${module.vcn.subnet2_ocid}"
-  nsg_web_ocid = "${module.vcn.nsg_web_ocid}"
-  nsg_app_ocid = "${module.vcn.nsg_app_ocid}"
+module "database"{
+    source = "./modules/db"
+    tenancy_ocid = "${var.tenancy_ocid}"
+    compartment_ocid = "${var.compartment_ocid}"
+    availability_domain = "${var.availability_domain}"
+    ssh_public_key = "${var.ssh_public_key}"
+    ssh_private_key   = "${var.ssh_authorized_private_key}"
+    subnet_ad1 = "${module.vcn.subnet1_ocid}"
+    subnet_ad2 = "${module.vcn.subnet2_ocid}"
+    nsg_db_ocid = "${module.vcn.nsg_db_ocid}"
 }
